@@ -6,6 +6,7 @@ import LoginPage from "../../../pages/loginPage"
 import HomePage from "../../../pages/homePage"
 import CheckoutPage from '../../../pages/checkoutPage'
 import { OrderConfirmationPage } from '../../../pages/orderConfirmationPage'
+import { Propertyreader } from '../../../utility/PropertyReader'
 
 let browser: Browser
 let page: Page
@@ -13,7 +14,7 @@ let homePage: HomePage
 let loginPage: LoginPage
 let checkoutPage: CheckoutPage
 let orderConfirmationPage:OrderConfirmationPage
-
+let userConfigPropReader:Propertyreader
 
 Given('User navigates to the login Page', async function () {
     browser = await chromium.launch({ headless: false })
@@ -24,11 +25,13 @@ Given('User navigates to the login Page', async function () {
     loginPage = new LoginPage(page)
     checkoutPage = new CheckoutPage(page)
     orderConfirmationPage = new OrderConfirmationPage(page)
-
+    userConfigPropReader = new Propertyreader('userConfig.properties')
 });
 
 When('User enters valid credentials to login', async function () {
-    await loginPage.performLogin('standard_user', 'secret_sauce')
+    let u_name = userConfigPropReader.getProperty('username')
+    let password = userConfigPropReader.getProperty('password')
+    await loginPage.performLogin(u_name, password)
 });
 
 Then('User validates the Home Page is displayed correctly', async function () {
@@ -44,12 +47,14 @@ When('User selects {string} and {string} product to add to Cart', async function
 Then('User validates the count on the cart icon and clicks on cart icon', async function () {
      expect(await homePage.cartItemCount.textContent()).toBe('2')
      await homePage.shoppingCartIcon.click()
-     await page.waitForTimeout(2500)
 });
 
 When('User clicks the checkout button and completes the transaction', async function () {
+    let firstName = userConfigPropReader.getProperty('firstName')
+    let lestName = userConfigPropReader.getProperty( 'lastName')
+    let zipCode = userConfigPropReader.getProperty('zipCode')
     await checkoutPage.checkOutBtn.click()
-    await checkoutPage.fillCheckoutInfo('Playwright', 'Test', '201301')
+    await checkoutPage.fillCheckoutInfo(firstName, lestName, zipCode)
     await checkoutPage.finishBtn.click()
 });
 
