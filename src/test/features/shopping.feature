@@ -1,4 +1,4 @@
-Feature: Post CRUD Operations
+Feature: Shopping feature
 
   Background: User logs into the Application
     Given User navigates to the login Page
