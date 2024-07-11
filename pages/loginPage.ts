@@ -18,6 +18,10 @@ export default class LoginPage {
         return this.page.locator('input#login-button')
     }
 
+    public get errorMessage(){
+        return this.page.locator('[data-test = "error"]')
+    }
+
     public async performLogin(username:string, password:string){
         await this.usernameField.fill(username)
         await this.passwordField.fill(password)

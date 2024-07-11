@@ -1,5 +1,4 @@
-import { Given, When, Then, AfterAll } from '@cucumber/cucumber'
-import { Browser, Page, chromium } from "@playwright/test"
+import { Given, When, Then, setDefaultTimeout } from '@cucumber/cucumber'
 import { expect } from '@playwright/test'
 
 import LoginPage from "../../../pages/loginPage"
@@ -7,9 +6,10 @@ import HomePage from "../../../pages/homePage"
 import CheckoutPage from '../../../pages/checkoutPage'
 import { OrderConfirmationPage } from '../../../pages/orderConfirmationPage'
 import { Propertyreader } from '../../../utility/PropertyReader'
+import { pageFixture } from '../../hooks/pageFixture'
 
-let browser: Browser
-let page: Page
+setDefaultTimeout(1000 * 45)
+
 let homePage: HomePage
 let loginPage: LoginPage
 let checkoutPage: CheckoutPage
@@ -17,14 +17,11 @@ let orderConfirmationPage:OrderConfirmationPage
 let userConfigPropReader:Propertyreader
 
 Given('User navigates to the login Page', async function () {
-    browser = await chromium.launch({ headless: false })
-    const context = await browser.newContext()
-    page = await context.newPage()
-    await page.goto('https://www.saucedemo.com/v1/')
-    homePage = new HomePage(page)
-    loginPage = new LoginPage(page)
-    checkoutPage = new CheckoutPage(page)
-    orderConfirmationPage = new OrderConfirmationPage(page)
+    await pageFixture.page.goto('https://www.saucedemo.com/v1/')
+    homePage = new HomePage(pageFixture.page)
+    loginPage = new LoginPage(pageFixture.page)
+    checkoutPage = new CheckoutPage(pageFixture.page)
+    orderConfirmationPage = new OrderConfirmationPage(pageFixture.page)
     userConfigPropReader = new Propertyreader('userConfig.properties')
 });
 
@@ -61,8 +58,3 @@ When('User clicks the checkout button and completes the transaction', async func
 Then('User validate the order confirmation screen', async function(){
      await orderConfirmationPage.validateConfirmationScreen();
 });
-
-AfterAll(async function(){
-    await page.close()
-    await browser.close()
-})
