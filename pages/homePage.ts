@@ -45,30 +45,4 @@ export default class HomePage {
             i++;
         }
     }
-
-
-
-
-
-
-
-
-
-    // async createNewPost() {
-    //     await this.postLink.click()
-    // }
-    // async navigateToHome() {
-    //     await this.homeLink.click()
-    // }
-    // async navigateToLogin() {
-    //     await this.loginLink.click()
-    // }
-    // async navigateToGlobalFeed() {
-
-    //     await this.globalfeedList.click()
-    // }
-    // async validateLogin() {
-
-    //     await expect(this.loginLink).not.toBeVisible()
-    // }
 }
