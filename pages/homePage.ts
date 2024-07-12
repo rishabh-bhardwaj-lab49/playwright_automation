@@ -27,7 +27,6 @@ export default class HomePage {
     }
 
     public async addItemsToCart(numberOfItemsToSelect:number){
-        console.log(this.allProductsCart.count())
         let i = 0
         while(i <= numberOfItemsToSelect){
             await this.allProductsCart.nth(i).click()
@@ -37,7 +36,6 @@ export default class HomePage {
     }
 
     public async addItemsToCartByItemName(itemsToSelect:string[]){
-        console.log(this.allProductsCart.count())
         let i = 0
         while(i < itemsToSelect.length){
             await this.page.locator('.inventory_item').filter({hasText:itemsToSelect[i]}).locator('.btn_primary.btn_inventory').click()

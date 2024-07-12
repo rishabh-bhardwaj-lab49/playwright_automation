@@ -1,6 +1,4 @@
-import { Given, When, Then } from "@cucumber/cucumber";
-import { Browser, Page } from "playwright";
-import PropertiesReader from "properties-reader";
+import { When, Then } from "@cucumber/cucumber";
 import { Propertyreader } from "../../../utility/PropertyReader";
 import LoginPage from "../../../pages/loginPage";
 import { pageFixture } from "../../hooks/pageFixture";
@@ -16,7 +14,6 @@ When('User enters invalid credentials to login', async function () {
     let password = userConfigPropReader.getProperty('password')
     await loginPage.performLogin(u_name, password)
 });
-
 
 Then('User validates the error message displayed', async function(){
     expect(await loginPage.errorMessage.textContent()).toContain("Sorry, this user has been locked out.")

@@ -4,6 +4,7 @@ Feature: Shopping feature
     Given User navigates to the login Page
     When User enters valid credentials to login
 
+  @ValidateAddToCart
   Scenario: Validate Add to Cart functionality
     Then User validates the Home Page is displayed correctly
     When User selects "Sauce Labs Onesie" and "Sauce Labs Fleece Jacket" product to add to Cart
