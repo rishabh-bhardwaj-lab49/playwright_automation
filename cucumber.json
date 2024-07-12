@@ -17,7 +17,8 @@
         ],
         "format": [
             "html:test-results/cucumber-report.html",
-            "rerun:@rerun.txt"
+            "rerun:@rerun.txt",
+            "./reporter.mjs"
         ],
         "parallel": 2
     },
@@ -35,9 +36,8 @@
             "ts-node/register"
         ],
         "format": [
-            "html:test-results/cucumber-report.html",
-            "rerun:@rerun.txt"
-        ],
-        "parallel": 2
+            "rerun:@rerun.txt",
+            "reporter.mjs"
+        ]
     }
 }

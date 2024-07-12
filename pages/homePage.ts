@@ -39,7 +39,6 @@ export default class HomePage {
         let i = 0
         while(i < itemsToSelect.length){
             await this.page.locator('.inventory_item').filter({hasText:itemsToSelect[i]}).locator('.btn_primary.btn_inventory').click()
-            await this.page.waitForTimeout(2000)
             i++;
         }
     }
